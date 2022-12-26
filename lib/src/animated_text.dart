@@ -75,6 +75,9 @@ class AnimatedTextKit extends StatefulWidget {
   ///Overrides previous text to other one. It's true by default
   final bool overrideTexts;
 
+  ///Align animated texts if it's not overridden.
+  final MainAxisAlignment mainAxisAlignment;
+
   /// If on pause, should a tap remove the remaining pause time ?
   ///
   /// By default it is set to false.
@@ -131,6 +134,7 @@ class AnimatedTextKit extends StatefulWidget {
     this.onFinished,
     this.isRepeatingAnimation = true,
     this.totalRepeatCount = 3,
+    this.mainAxisAlignment = MainAxisAlignment.center,
     this.repeatForever = false,
   })  : assert(animatedTexts.length > 0),
         assert(!isRepeatingAnimation || totalRepeatCount > 0 || repeatForever),
@@ -177,6 +181,7 @@ class _AnimatedTextKitState extends State<AnimatedTextKit>
       child: widget.overrideTexts
           ? _animationRenderer()
           : Column(
+              mainAxisAlignment: widget.mainAxisAlignment,
               children: widget.animatedTexts
                       .take(_index)
                       .map<Widget>((e) => Padding(
